@@ -1,25 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import './style.css'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+//https://sujeitoprogramador.com/rn-api/?api=posts
+
+
+
+const App = () => {
+    const [nutri, setNutri] = useState([])
+
+    useEffect(() => {
+        function loadApi() {
+            let url = 'https://sujeitoprogramador.com/rn-api/?api=posts'
+            fetch(url)
+            .then((r) => r.json())
+            .then((json) => {
+                console.log(json) 
+                setNutri(json)               
+            })
+        }
+
+        loadApi()
+
+    }, [])
+    return(
+        <div className="container">
+            <header>
+                <strong>React Nutri</strong>
+            </header>
+            {nutri.map((item) => {
+                return(
+                    <article className="post" key='item.id'>
+                        <strong className="titulo">{ item.titulo }</strong>
+                        <img className="capa" src={ item.capa } alt={ item.titulo } />
+                        <p className="subtitulo">{ item.subtitulo }</p>
+                        <a className="botao" href="">Acessar</a>
+                    </article>
+                )
+            })}
+        </div>
+    )
 }
 
 export default App;
