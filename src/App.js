@@ -14,7 +14,6 @@ const App = () => {
             fetch(url)
             .then((r) => r.json())
             .then((json) => {
-                console.log(json) 
                 setNutri(json)               
             })
         }
@@ -34,6 +33,7 @@ const App = () => {
                         <img className="capa" src={ item.capa } alt={ item.titulo } />
                         <p className="subtitulo">{ item.subtitulo }</p>
                         <a className="botao" href="">Acessar</a>
+                        <h1>Categoria: { item.categoria }</h1>
                     </article>
                 )
             })}
